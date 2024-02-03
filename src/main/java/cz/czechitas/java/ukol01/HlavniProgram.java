@@ -13,40 +13,49 @@ public class HlavniProgram {
 
     //TODO implementace domácího úkolu
 
-//    //Cast 3 - rada domku:
-//    //presun zofky na levou stranu plochy
-//    odchodVlevo(450);
-//
-//    //cyklus pro nakresleni rady domku
-//    for (int i = 0; i < 5; i++) {
-//      nakresliDomek(100, 60);
-//      popojdiDoprava(90,60);
-//    }
-//
-//    //zofka nakresli posledni dva domky o radu nize
-//    zofka.turnRight(90); //Zofka kouka dolu
-//    zofka.move(200); //Zofka se posunula dolu
-//    zofka.turnLeft(180); //Zofka kouka nahoru
-//    odchodVlevo(100+60); //Zofka se zarovna s hornim domkem - jde o soucet strCtverce a pixels z popojdiDoprava
-//    nakresliDomek(100,60); //Zofka skonci a kouka dolu
-//    zofka.turnLeft(180); //Zofka kouka nahoru
-//    odchodVlevo(5*(100+60)-30); //presun pod prvni domek - odpovida priblizne strCverce + pixels z popojdiDoprava * pocet iteraci
-//    nakresliDomek(100,60); //rada domku je hotova
-//    //TODO zjistit jak vyrobit promennou z parametru metod
+    //Cast 3 - rada domku:
+    //presun zofky na levou stranu plochy
+    odchodVlevo(450);
 
-//    //TODO nakreslit prase mezi poslední dva domky
-//    //Cast 1 - nakresli prasatko
-//    nakresliPrasatko();
+    //cyklus pro nakresleni rady domku
+    for (int i = 0; i < 5; i++) {
+      nakresliDomek(100, 60);
+      popojdiDoprava(90,60);
+    }
 
-//    //TODO slunicko nakreslit nad domy
-//    //Cast 2 - dva mnohouhelniky a slunicko
-//    //nakresliKolecko(100,8); //osmiuhelnik
-//    //nakresliKolecko(100,30);
-//    //nakresliKolecko(100,20);
-//    nakresliSlunicko(100,20);
+    //zofka nakresli posledni dva domky o radu nize
+    zofka.turnRight(90); //Zofka kouka dolu
+    zofka.move(200); //Zofka se posunula dolu
+    zofka.turnLeft(180); //Zofka kouka nahoru
+    odchodVlevo(100+60); //Zofka se zarovna s hornim domkem - jde o soucet strCtverce a pixels z popojdiDoprava
+    nakresliDomek(100,60); //Zofka skonci a kouka dolu
+    zofka.turnLeft(180); //Zofka kouka nahoru
+    odchodVlevo(((5 * (100 + 60)) - 30)); //presun pod prvni domek - odpovida priblizne strCverce + pixels z popojdiDoprava * pocet iteraci
+    nakresliDomek(100,60); //rada domku je hotova, Zofka kouka dolu
+    zofka.penUp();
+    zofka.move(100); //Zofka sejde po strane ctverce, kouka dolu
+    zofka.turnLeft(90); //chci aby koukala doleva
+    //TODO zjistit jak vyrobit promennou z parametru metod
 
-    //TODO podepsat se pod domky a prase - MISA
-    podpisMisa(100);
+    //Cast 1 - nakresleni prasete
+    popojdiDoprava(0, 150);
+    zofka.turnLeft(90); //potrebuju aby Zofka koukala nahoru, nez zacne kreslit prase
+    nakresliPrasatko(); //Zofka nakresli prase a kouka nahoru
+
+    //TODO slunicko nakreslit nad domy
+    //Cast 2 - dva mnohouhelniky a slunicko
+    //nakresliKolecko(100,8); //osmiuhelnik
+    //nakresliKolecko(100,30);
+    //nakresliKolecko(100,20);
+    zofka.move(400);
+    nakresliSlunicko(100,20);
+    popojdiDoprava(0, 30); //Zofka kouka doleva
+
+//    //TODO podepsat se pod domky a prase - MISA
+    zofka.turnLeft(90);
+    zofka.move(650); //presun dolu
+    zofka.turnLeft(180); //aby Zofka koukala nahoru
+    podpisMisa(80);
   }
 
 
