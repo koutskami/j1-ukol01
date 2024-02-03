@@ -34,9 +34,17 @@ public class HlavniProgram {
 //    nakresliDomek(100,60); //rada domku je hotova
 //    //TODO zjistit jak vyrobit promennou z parametru metod
 
-    //Cast 1 - nakresli prasatko
-    nakresliPrasatko();
-    //TODO nakreslit prase mezi poslední dva domky
+//    //Cast 1 - nakresli prasatko
+//    nakresliPrasatko();
+//    //TODO nakreslit prase mezi poslední dva domky
+
+    //Cast 2 - dva mnohouhelniky a slunicko
+    //nakresliKolecko(100,8); //osmiuhelnik
+    //nakresliKolecko(100,30);
+    //nakresliKolecko(100,20);
+    nakresliSlunicko(100,20);
+    //TODO slunicko nakreslit nad domy
+
   }
 
 
@@ -60,7 +68,7 @@ public class HlavniProgram {
     }
   }
 
-  /** *Metoda nakreslí čáru z výchozího bodu pod úhlem 30°. Hodí se pro nakreslení ocasu či nohou.* **/
+  /** *Metoda nakreslí čáru o 30 px z výchozího bodu pod vybraným úhlem.* **/
   private void nakresliCaru (int byAngle) {
     int pixels = 30;
     zofka.penDown();
@@ -129,5 +137,61 @@ public class HlavniProgram {
     zofka.penUp();
     zofka.turnLeft(byAngle);
     zofka.move(pixels);
+  }
+
+  //kolecko prevzato z podkladu
+  /**
+   * Nakreslí „kolečko“ – pravidelný mnohoúhelník se zadaným „poloměrem“ a počten stran.
+   *
+   * Výpočet délky strany se provádí tak, že si mnohoúhelník rozdělím na trojúhelníky tvořené jednou
+   * stranou mnohoúhelníku a spojnicí sousedních vrcholů se středem. Jde tedy o rovnoramenný trojúhelík.
+   * Tento trojúhelník se rozdělí na dva shodné pravoúhlé trojúhelníky tím, že se vztyčí kolmice ze středu
+   * strany mnohoúhelníku, které prochází středem trojúhelníku.
+   * Přepona tohoto trojúhelníku je spojnice středu a vrcholu mnohoúhelníku, jedna přepona je polovina strany
+   * mnohoúhelníku, druhá přepona je ona kolmice. Známý úhel je úhel u středu mnohoúhelníky, který je polovinou
+   * středového úhlu mnohoúhelníku.
+   *
+   * @param polomer Poloměr kolečka – vzdálenost mezi středem a brcholem mnohoúhelíku.
+   * @param pocetStran Počet stran mnohoúhelníku. Doporučeno volit číslo, které je celočíselným dělitelem 360.
+   */
+  public void nakresliKolecko(int polomer, int pocetStran) {
+    zofka.penUp();
+    zofka.move(polomer);
+    zofka.penDown();
+
+    // o kolik stupnů se musí želva otočit, když má kreslit další stranu mnohoúhelníku
+    // zároven je to velikost úhlu, který má vrchol ve středu mnohoúhelníku a spojuje střed a dva sousedící vrcholy mnohoúhelníku
+    int uhel = 360 / pocetStran;
+
+    // sinus úhlu = délka protilehlé odvěsny / délka přepony
+    // úhel = polovina vnitřního úhlu
+    // přepona = spojnice středu a vrcholu
+    // odvěsna = polovina strany mnohoúhelníku
+    int delkaStrany = (int) (Math.sin(Math.PI * (double) uhel / 360d) * polomer * 2);
+
+    zofka.turnRight(90);
+    for (int i = 0; i < pocetStran; i++) {
+      zofka.move(delkaStrany);
+      zofka.turnRight(uhel);
+    }
+    zofka.turnLeft(90);
+  }
+
+//nepodarilo se mi poresit jinak, neni to uplne nejstatstnejsi reseni
+public void nakresliSlunicko(int polomer, int pocetStran) {
+  zofka.penUp();
+  zofka.move(polomer);
+  zofka.penDown();
+
+  int uhel = 360 / pocetStran;
+
+  int delkaStrany = (int) (Math.sin(Math.PI * (double) uhel / 360d) * polomer * 2);
+
+  for (int i = 0; i < pocetStran + 3; i++) {
+    nakresliCaru(10);
+    zofka.move(delkaStrany);
+    zofka.turnRight(uhel);
+  }
+  zofka.turnLeft(90);
   }
 }
