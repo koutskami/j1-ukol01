@@ -34,19 +34,20 @@ public class HlavniProgram {
 //    nakresliDomek(100,60); //rada domku je hotova
 //    //TODO zjistit jak vyrobit promennou z parametru metod
 
+//    //TODO nakreslit prase mezi poslední dva domky
 //    //Cast 1 - nakresli prasatko
 //    nakresliPrasatko();
-//    //TODO nakreslit prase mezi poslední dva domky
 
-    //Cast 2 - dva mnohouhelniky a slunicko
-    //nakresliKolecko(100,8); //osmiuhelnik
-    //nakresliKolecko(100,30);
-    //nakresliKolecko(100,20);
-    nakresliSlunicko(100,20);
-    //TODO slunicko nakreslit nad domy
+//    //TODO slunicko nakreslit nad domy
+//    //Cast 2 - dva mnohouhelniky a slunicko
+//    //nakresliKolecko(100,8); //osmiuhelnik
+//    //nakresliKolecko(100,30);
+//    //nakresliKolecko(100,20);
+//    nakresliSlunicko(100,20);
 
+    //TODO podepsat se pod domky a prase - MISA
+    podpisMisa(100);
   }
-
 
 
   //Seznam metod:
@@ -154,7 +155,7 @@ public class HlavniProgram {
    * @param polomer Poloměr kolečka – vzdálenost mezi středem a brcholem mnohoúhelíku.
    * @param pocetStran Počet stran mnohoúhelníku. Doporučeno volit číslo, které je celočíselným dělitelem 360.
    */
-  public void nakresliKolecko(int polomer, int pocetStran) {
+  private void nakresliKolecko(int polomer, int pocetStran) {
     zofka.penUp();
     zofka.move(polomer);
     zofka.penDown();
@@ -178,20 +179,90 @@ public class HlavniProgram {
   }
 
 //nepodarilo se mi poresit jinak, neni to uplne nejstatstnejsi reseni
-public void nakresliSlunicko(int polomer, int pocetStran) {
-  zofka.penUp();
-  zofka.move(polomer);
-  zofka.penDown();
+  private void nakresliSlunicko(int polomer, int pocetStran) {
+    zofka.penUp();
+    zofka.move(polomer);
+    zofka.penDown();
 
-  int uhel = 360 / pocetStran;
+    int uhel = 360 / pocetStran;
 
-  int delkaStrany = (int) (Math.sin(Math.PI * (double) uhel / 360d) * polomer * 2);
+    int delkaStrany = (int) (Math.sin(Math.PI * (double) uhel / 360d) * polomer * 2);
 
-  for (int i = 0; i < pocetStran + 3; i++) {
-    nakresliCaru(10);
-    zofka.move(delkaStrany);
-    zofka.turnRight(uhel);
+    for (int i = 0; i < pocetStran + 3; i++) {
+      nakresliCaru(10);
+      zofka.move(delkaStrany);
+      zofka.turnRight(uhel);
+    }
+    zofka.turnLeft(90);
   }
-  zofka.turnLeft(90);
+
+  //Nasleduji metody co vypisuji pismena, soucasti metody je popojiti doprava
+  private void pismenoM(int vyskaPismene) {
+    double uhelStrisky = 120;
+    int velikostStrisky = vyskaPismene / 2;
+    zofka.penDown();
+    zofka.move(vyskaPismene);
+    zofka.turnRight(uhelStrisky);
+    zofka.move(velikostStrisky);
+    zofka.turnLeft(uhelStrisky / 2);
+    zofka.move(velikostStrisky);
+    zofka.turnRight(uhelStrisky);
+    zofka.move(vyskaPismene);
+    popojdiDoprava(90,30);
+  }
+  private void pismenoI(int vyskaPismene) {
+    zofka.turnLeft(90);
+    zofka.move(vyskaPismene);
+    zofka.turnLeft(180);
+    zofka.penDown();
+    zofka.move(vyskaPismene);
+    popojdiDoprava(90,30);
+  }
+  private void pismenoS(int vyskaPismene) {
+    zofka.penDown();
+    int polovicniVyska = vyskaPismene / 2;
+    zofka.move(polovicniVyska);
+    int vnitrniUhel = 90;
+      for (int i = 0; i < 2; i++) {
+          zofka.turnLeft(vnitrniUhel);
+          zofka.move(polovicniVyska);
+      }
+      for (int i = 0; i < 2; i++) {
+          zofka.turnRight(vnitrniUhel);
+          zofka.move(polovicniVyska);
+      }
+    zofka.penUp();
+    zofka.turnRight(vnitrniUhel);
+    zofka.move(vyskaPismene);
+    popojdiDoprava(vnitrniUhel,30);
+  }
+  private void pismenoA(int vyskaPismene) {
+    int delkaStrany = vyskaPismene + (vyskaPismene / 10);
+    int vnitrniUhel = 65;
+    int sirkaPismene = delkaStrany / 2;
+    zofka.penDown();
+    zofka.turnLeft(vnitrniUhel);
+    zofka.move(delkaStrany);
+    zofka.turnRight(vnitrniUhel * 2);
+    zofka.move(delkaStrany);
+    zofka.turnRight(180);
+    zofka.penUp();
+    zofka.move(sirkaPismene);
+    zofka.turnLeft(vnitrniUhel);
+    zofka.penDown();
+    zofka.move(sirkaPismene);
+    //navrat
+    zofka.penUp();
+    zofka.turnLeft(180);
+    zofka.move(sirkaPismene);
+    zofka.turnRight(vnitrniUhel);
+    zofka.move(sirkaPismene);
+    popojdiDoprava(vnitrniUhel,30);
+  }
+  private void podpisMisa(int vyskaPismene) {
+    pismenoM(vyskaPismene);
+    pismenoI(vyskaPismene);
+    pismenoS(vyskaPismene);
+    pismenoA(vyskaPismene);
   }
 }
