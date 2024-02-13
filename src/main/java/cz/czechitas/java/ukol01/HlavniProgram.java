@@ -60,7 +60,7 @@ public class HlavniProgram {
 
 
   //Seznam metod:
-  private void nakresliCtverec(int strCtverce) {
+  public void nakresliCtverec(int strCtverce) {
     zofka.penDown();
     for (int i = 0; i < 4; i++) {
       zofka.move(strCtverce);
@@ -68,7 +68,7 @@ public class HlavniProgram {
     }
   }
 
-  private void nakresliObdelnik() {
+  public void nakresliObdelnik() {
     zofka.penDown();
     for (int i = 0; i < 2; i++) {
       zofka.move(100);
@@ -79,7 +79,7 @@ public class HlavniProgram {
   }
 
   /** *Metoda nakreslí čáru o 30 px z výchozího bodu pod vybraným úhlem.* **/
-  private void nakresliCaru (int byAngle) {
+  public void nakresliCaru (int byAngle) {
     int pixels = 30;
     zofka.penDown();
     zofka.turnLeft(byAngle);
@@ -89,13 +89,13 @@ public class HlavniProgram {
     zofka.move(pixels);
   }
   /** * Metoda nakreslí stříšku z jednoho výchozího bodu. Např. nakreslí nohy praseti.* **/
-  private void nakresliNozicky() {
+  public void nakresliNozicky() {
     nakresliCaru(60);
     nakresliCaru(270);
   }
 
   /** *Prase je složeno z obdélníku, hlavy (střechy), ocasu a nožiček. Žofka skončí hlavou nahoru* **/
-  private void nakresliPrasatko() {
+  public void nakresliPrasatko() {
     nakresliObdelnik();
     nakresliStrechu(60);
     zofka.penUp();
@@ -113,7 +113,7 @@ public class HlavniProgram {
 
   /** *Metoda nakreslí dvě stěny trojúhelníku bez báze s úhlem 60°.
    * Parametr je délka strany. Pro čtverec o 100 px je vhodná délka strany střechy 60 px* **/
-  private void nakresliStrechu(int strStrechy) {
+  public void nakresliStrechu(int strStrechy) {
     zofka.turnLeft(30);
     for (int i = 0; i < 2; i++) {
       int uhelTrojuhelniku = 60;
@@ -127,7 +127,7 @@ public class HlavniProgram {
    * Parametr je vzdálenost, kterou Žofka ujde.
    * Po použití metody je Žofka nachystaná na metodu nakresliDomek
    * Z půlky pole je to cca 450 pixelů. * **/
-  private void odchodVlevo(int pixels) {
+  public void odchodVlevo(int pixels) {
     zofka.penUp();
     zofka.turnLeft(90);
     zofka.move(pixels);
@@ -136,14 +136,14 @@ public class HlavniProgram {
 
   /** * Metoda nakreslí čtverec se střechou.
    * Žofka zůstane koukat dolů pod 30° úhlem od horní stěny čtverce * **/
-  private void nakresliDomek(int strCtverce, int strStrechy) {
+  public void nakresliDomek(int strCtverce, int strStrechy) {
     nakresliCtverec(strCtverce);
     nakresliStrechu(strStrechy);
   }
 
   /** * Metoda vytvořená pro posun doprava, když Žofka kouká dolů.
    * Pro posun po dokreslení domečku zadej úhel 90° a 60 px. Žofka se tím srovná s horní stěnou čtverce* **/
-  private void popojdiDoprava(int byAngle, int pixels) {
+  public void popojdiDoprava(int byAngle, int pixels) {
     zofka.penUp();
     zofka.turnLeft(byAngle);
     zofka.move(pixels);
@@ -151,7 +151,7 @@ public class HlavniProgram {
 
   //kolecko prevzato z podkladu
   /**
-   * Nakreslí „kolečko“ – pravidelný mnohoúhelník se zadaným „poloměrem“ a počten stran.
+   * Nakreslí „kolečko“ – pravidelný mnohoúhelník se zadaným „poloměrem“ a počtem stran.
    *
    * Výpočet délky strany se provádí tak, že si mnohoúhelník rozdělím na trojúhelníky tvořené jednou
    * stranou mnohoúhelníku a spojnicí sousedních vrcholů se středem. Jde tedy o rovnoramenný trojúhelík.
@@ -161,10 +161,10 @@ public class HlavniProgram {
    * mnohoúhelníku, druhá přepona je ona kolmice. Známý úhel je úhel u středu mnohoúhelníky, který je polovinou
    * středového úhlu mnohoúhelníku.
    *
-   * @param polomer Poloměr kolečka – vzdálenost mezi středem a brcholem mnohoúhelíku.
+   * @param polomer Poloměr kolečka – vzdálenost mezi středem a vrcholem mnohoúhelíku.
    * @param pocetStran Počet stran mnohoúhelníku. Doporučeno volit číslo, které je celočíselným dělitelem 360.
    */
-  private void nakresliKolecko(int polomer, int pocetStran) {
+  public void nakresliKolecko(int polomer, int pocetStran) {
     zofka.penUp();
     zofka.move(polomer);
     zofka.penDown();
@@ -188,7 +188,7 @@ public class HlavniProgram {
   }
 
 //nepodarilo se mi poresit jinak, neni to uplne nejstatstnejsi reseni
-  private void nakresliSlunicko(int polomer, int pocetStran) {
+  public void nakresliSlunicko(int polomer, int pocetStran) {
     zofka.penUp();
     zofka.move(polomer);
     zofka.penDown();
@@ -206,7 +206,7 @@ public class HlavniProgram {
   }
 
   //Nasleduji metody co vypisuji pismena, soucasti metody je popojiti doprava
-  private void pismenoM(int vyskaPismene) {
+  public void pismenoM(int vyskaPismene) {
     double uhelStrisky = 120;
     int velikostStrisky = vyskaPismene / 2;
     zofka.penDown();
@@ -219,7 +219,7 @@ public class HlavniProgram {
     zofka.move(vyskaPismene);
     popojdiDoprava(90,30);
   }
-  private void pismenoI(int vyskaPismene) {
+  public void pismenoI(int vyskaPismene) {
     zofka.turnLeft(90);
     zofka.move(vyskaPismene);
     zofka.turnLeft(180);
@@ -227,7 +227,7 @@ public class HlavniProgram {
     zofka.move(vyskaPismene);
     popojdiDoprava(90,30);
   }
-  private void pismenoS(int vyskaPismene) {
+  public void pismenoS(int vyskaPismene) {
     zofka.penDown();
     int polovicniVyska = vyskaPismene / 2;
     zofka.move(polovicniVyska);
@@ -245,7 +245,7 @@ public class HlavniProgram {
     zofka.move(vyskaPismene);
     popojdiDoprava(vnitrniUhel,30);
   }
-  private void pismenoA(int vyskaPismene) {
+  public void pismenoA(int vyskaPismene) {
     int delkaStrany = vyskaPismene + (vyskaPismene / 10);
     int vnitrniUhel = 65;
     int sirkaPismene = delkaStrany / 2;
@@ -268,7 +268,7 @@ public class HlavniProgram {
     zofka.move(sirkaPismene);
     popojdiDoprava(vnitrniUhel,30);
   }
-  private void podpisMisa(int vyskaPismene) {
+  public void podpisMisa(int vyskaPismene) {
     pismenoM(vyskaPismene);
     pismenoI(vyskaPismene);
     pismenoS(vyskaPismene);
